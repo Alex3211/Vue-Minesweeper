@@ -1,6 +1,6 @@
 <template>
   <div class="Row">
-    <Cell v-for='(cell, index) in Row' :key="'cell'+index" :Cells="cell"/>
+    <Cell v-for='(cell, index) in row' :key="'cell'+index" :cell="cell"/>
   </div>
 </template>
 
@@ -11,7 +11,6 @@ export default {
   name: 'Row',
   data: function () {
     return {
-      Row: []
     }
   },
   props: {
@@ -20,7 +19,6 @@ export default {
   created () {
   },
   mounted () {
-    this.Row = this.row
   },
   components: {
     Cell
