@@ -18,6 +18,12 @@ export default new Vuex.Store({
   getters: {
     array: (state, getters) => {
       return state.array
+    },
+    getX: (state, getters) => {
+      return state.settings.x
+    },
+    getY: (state, getters) => {
+      return state.settings.y
     }
   },
   mutations: {
@@ -29,12 +35,17 @@ export default new Vuex.Store({
       state.score = 0
     },
     setClick (state, payload) {
-      // col.used sert a mettre les couleurs, il faut mettre l'algo pour les cases adjacentes
       const result = mixin.CheckCase(payload, state.array, mixin.CheckCase, false)
       state.win = result.win
       state.gameBreak = result.gameBreak
       state.score = state.score + result.score
       state.array = result.array
+    },
+    setX (state, payload) {
+      state.x = payload.x
+    },
+    setY (state, payload) {
+      state.y = payload.y
     }
   },
   actions: {
@@ -43,6 +54,12 @@ export default new Vuex.Store({
     },
     setClick (context, payload) {
       context.commit('setClick', payload)
+    },
+    setX (context, payload) {
+      context.commit('setX', payload)
+    },
+    setY (context, payload) {
+      context.commit('setY', payload)
     }
   }
 })
