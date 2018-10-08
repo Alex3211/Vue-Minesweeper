@@ -7,7 +7,13 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     array: [],
-    score: 0
+    score: 0,
+    win: false,
+    gameBreak: false,
+    settings: {
+      y: 4,
+      x: 4
+    }
   },
   getters: {
     array: (state, getters) => {
@@ -16,20 +22,19 @@ export default new Vuex.Store({
   },
   mutations: {
     generateArray (state) {
-      let array = mixin.generateArray()
-      array = mixin.GenerateBomb(array, 10, 21)
+      let array = mixin.generateArray(state.settings.y, state.settings.x)
+      array = mixin.GenerateBomb(array, state.settings.y, state.settings.x)
       array = mixin.setNumber(array, mixin.AdjacentBomb)
       state.array = array
       state.score = 0
     },
     setClick (state, payload) {
-      // on passe le parametre used a true
-      const newArray = state.array.map(row => row.map(col => {
-        // col.used sert a mettre les couleurs, il faut mettre l'algo pour les cases adjacentes
-        if (col.id === payload.id) col.used = !col.used
-        return col
-      }))
-      state.array = newArray
+      // col.used sert a mettre les couleurs, il faut mettre l'algo pour les cases adjacentes
+      const result = mixin.CheckCase(payload, state.array, mixin.CheckCase, false)
+      state.win = result.win
+      state.gameBreak = result.gameBreak
+      state.score = state.score + result.score
+      state.array = result.array
     }
   },
   actions: {
