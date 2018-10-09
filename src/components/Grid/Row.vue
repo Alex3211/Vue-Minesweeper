@@ -1,6 +1,6 @@
 <template>
-  <div class="Row" :style="`height: calc(80% / ${getY})`">
-    <Cell v-for='(cell, index) in row' :key="'cell'+index" :cell="cell"/>
+  <div class="Row" :style="`height: calc(90vh / ${Number(getY)+1})`">
+    <Cell v-for='(cell, index) in row' :key="'cell'+index+cell.y+cell.x" :cell="cell"/>
   </div>
 </template>
 
@@ -24,7 +24,8 @@ export default {
   computed: {
     ...mapGetters([
       'array',
-      'getY'
+      'getY',
+      'getX'
     ])
   },
   components: {
@@ -38,6 +39,7 @@ export default {
 <style scoped lang="scss">
 .Row {
   display: flex;
-  min-height: 64px;
+  width: 100%;
+  // min-height: 64px;
 }
 </style>

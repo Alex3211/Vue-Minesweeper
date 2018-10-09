@@ -1,5 +1,12 @@
 /* eslint-disable */
-function isWin (array) {
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0,
+      v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+function isWin(array) {
   let countTrue = 0
   let countFalse = 0
   array.forEach(row => row.forEach(column => {
@@ -11,22 +18,19 @@ function isWin (array) {
   }))
   return countTrue === 0
 }
-function getAdjacentCase (element, oldArray) {
+function getAdjacentCase(element, array) {
   const originValues = {
     x: element.x,
     y: element.y
   }
-  let array = oldArray
   const adjacentValidCase = []
-  for (let i = -1; i <= 1; i++) {
-    for (let t = -1; t <= 1; t++) {
-      array.forEach(row => {
-        row.forEach(column => {
-          if (column.x === originValues.x + i && column.y === originValues.y + t) adjacentValidCase.push(column)
-        })
-      })
+  for (let y = -1; y <= 1; y++) {
+    for (let x = -1; x <= 1; x++) {
+      if (array[originValues.y + y] && array[originValues.y + y][originValues.x + x])
+        adjacentValidCase.push(array[originValues.y + y][originValues.x + x])
     }
   }
+  console.log(adjacentValidCase.length)
   return adjacentValidCase
 }
 export default {
@@ -39,7 +43,7 @@ export default {
           bombe: false,
           value: 0,
           used: false,
-          id: `${rowIndex}${colIndex}`,
+          id: `${rowIndex}${colIndex}${uuidv4()}`,
           x: colIndex,
           y: rowIndex
         })

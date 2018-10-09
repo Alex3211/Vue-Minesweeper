@@ -1,10 +1,9 @@
 <template>
   <div class="Cell" :style="`width: calc(100% / ${getX})`" :class="cellClass" @click="cellClick">
-    {{cell.value}}
-    {{cell.bombe}}
+    <!-- {{cell.value}} -->
+    <!-- {{cell.bombe}} -->
   </div>
 </template>
-  ;
 
 <script>
 import { mapGetters } from 'vuex'

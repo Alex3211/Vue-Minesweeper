@@ -1,6 +1,10 @@
 <template>
   <div class="menu">
-    <div class="btn" v-for="(menu, index) in menuContent" :key="'menu'+index">{{menu.fv}}</div>
+    <div class="btn" v-for="(menu, index) in menuContent" :key="'menu'+index">
+      {{(menu.fv === 'Score') ? `${menu.fv} ${score}` : (menu.fv === 'rejouer') ? `${menu.fv}` : ''}}
+      <div v-show="menu.fv === 'Longueur'"> <input v-model="XModel" type="number" name="a" id="e"> </div>
+      <div v-show="menu.fv === 'Largeur'"> <input v-model="YModel" type="number" name="a" id="e"> </div>
+    </div>
   </div>
 </template>
 
@@ -22,10 +26,10 @@ export default {
           fv: 'rejouer'
         },
         {
-          fv: ''
+          fv: 'Longueur'
         },
         {
-          fv: ''
+          fv: 'Largeur'
         },
         {
           fv: ''
@@ -33,10 +37,32 @@ export default {
       ]
     }
   },
-  computed: {
-    ...mapGetters(['array', 'getX', 'getY'])
+  mounted () {
+    this.x = this.getX
+    this.y = this.getY
   },
-  methods: {}
+  computed: {
+    ...mapGetters(['array', 'getX', 'getY', 'score', 'getLoading']),
+    XModel: {
+      set: function (val) {
+        this.$store.dispatch('setX', { x: val })
+      },
+      get: function () {
+        return this.getX + 1
+      }
+    },
+    YModel: {
+      set: function (val) {
+        this.$store.dispatch('setY', { y: val })
+      },
+      get: function () {
+        return this.getY + 1
+      }
+    }
+
+  },
+  methods: {
+  }
 }
 </script>
 
