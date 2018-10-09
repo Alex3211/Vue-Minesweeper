@@ -108,7 +108,7 @@ export default {
       if (col.id === element.id) {
         _col = col
         col.used = true
-        if (!col.bombe && !col.used) {
+        if (!col.bombe) {
           score = score + 1
         }
         if (col.bombe) {
