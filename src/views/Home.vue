@@ -1,23 +1,25 @@
 <template>
-    <Index msg="Welcome to Your Vue.js App"/>
+  <div class="Home">
+    <Nav class="nav"/>
+    <Grid class="grid"/>
+  </div>
 </template>
 
 <script>
-import Index from '@/components/Index.vue'
+import Nav from '@/components/Nav.vue'
+import Grid from '@/components/Grid/Index.vue'
 
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
-    Index
+    Nav,
+    Grid
   }
 }
 </script>
 
-<style lang="scss" scoped>
-.Index {
-  width: 100vw;
-  height: 100vh;
-  padding: 0;
-  margin: 0;
+<style scoped lang="scss">
+.home {
+  height: 100%;
 }
 </style>
