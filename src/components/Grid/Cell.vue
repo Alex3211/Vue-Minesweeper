@@ -1,11 +1,12 @@
 <template>
-  <div class="Cell" :class="cellClass" @click="cellClick">
-    {{cell.value}}
-    {{cell.bombe}}
+  <div class="Cell" :style="`width: calc(100% / ${getX})`" :class="cellClass" @click="cellClick">
+    <!-- {{cell.value}} -->
+    <!-- {{cell.bombe}} -->
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'Cell',
   data: function () {
@@ -17,6 +18,10 @@ export default {
   created () {},
   mounted () {},
   computed: {
+    ...mapGetters([
+      'array',
+      'getX'
+    ]),
     cellClass: function () {
       if (this.cell.used && this.cell.value >= 0 && !this.cell.bombe) {
         return 'green'
@@ -43,7 +48,6 @@ export default {
   justify-content: center;
   align-items: center;
   font-size: 24px;
-  width: calc(100vw / 22);
   border: 1px solid black;
   color: grey;
   &:hover {

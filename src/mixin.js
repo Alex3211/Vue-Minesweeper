@@ -1,63 +1,37 @@
 /* eslint-disable */
-// getAdjacentCase = (origin) => {
-//   let plateau = document.getElementById('app');
-//   let originValues = {
-//     x: origin.target['data-attribute'].pos.row,
-//     y: origin.target['data-attribute'].pos.col
-//   }
-//   let adjacentValidCase = [];
-//   for (let i = -1; i <= 1; i++) {
-//     for (let t = -1; t <= 1; t++) {
-//       const current = [];
-//       Object.values(plateau.children).forEach(row => {
-//         Object.values(row.children).forEach(column => {
-//           if (column['data-attribute'].pos.row === i + originValues.x && column[
-//               'data-attribute'].pos.col === t + originValues.y) current.push(column);
-//         })
-//       })
-//       if (current[0] && ((!current[0].className.includes('green') && !current[0].className.includes(
-//           'red')))) {
-//         adjacentValidCase.push({
-//           target: current[0]
-//         });
-//       }
-//     }
-//   }
-//   return adjacentValidCase;
-// }
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0,
+      v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
 function isWin(array) {
-  let countTrue = 0;
-  let countFalse = 0;
+  let countTrue = 0
+  let countFalse = 0
   array.forEach(row => row.forEach(column => {
-    if (column.value && !column.used) {
-      countTrue = countTrue + 1;
+    if (!column.used && !column.bombe) {
+      countTrue = countTrue + 1
     } else {
-      countFalse = countFalse + 1;
+      countFalse = countFalse + 1
     }
   }))
   return countTrue === 0
 }
-
-function getAdjacentCase(element, oldArray) {
+function getAdjacentCase(element, array) {
   const originValues = {
     x: element.x,
     y: element.y
   }
-  let array = oldArray
-  const adjacentValidCase = [];
-
-  for (let i = -1; i <= 1; i++) {
-    for (let t = -1; t <= 1; t++) {
-      const current = [];
-      array.forEach(row => {
-        row.forEach(column => {
-          if (column.x === originValues.x + i && column.y === originValues.y + t) adjacentValidCase.push(column);
-
-        })
-      })
+  const adjacentValidCase = []
+  for (let y = -1; y <= 1; y++) {
+    for (let x = -1; x <= 1; x++) {
+      if (array[originValues.y + y] && array[originValues.y + y][originValues.x + x])
+        adjacentValidCase.push(array[originValues.y + y][originValues.x + x])
     }
   }
-  return adjacentValidCase;
+  console.log(adjacentValidCase.length)
+  return adjacentValidCase
 }
 export default {
   generateArray: (y, x) => {
@@ -69,14 +43,14 @@ export default {
           bombe: false,
           value: 0,
           used: false,
-          id: `${rowIndex}${colIndex}`,
+          id: `${rowIndex}${colIndex}${uuidv4()}`,
           x: colIndex,
           y: rowIndex
         })
       }
       array.push(row)
     }
-    return array;
+    return array
   },
   setNumber: (array, adjacentFunction) => {
     array.forEach((row, i) => {
@@ -89,26 +63,20 @@ export default {
     return array
   },
   AdjacentBomb: (array, colIndex, rowIndex, rowLenght, colLenght) => {
-    let bombNumber = 0;
+    let bombNumber = 0
     for (let o = -1; o <= 1; o++) {
       for (let l = -1; l <= 1; l++) {
-        // if ((rowIndex + o) < 0 || (rowIndex + o) > rowLenght ||
-        //   (colIndex + l) < 0 || (colIndex + l) > colLenght ||
-        //   (l !== 0 && o !== 0) && colIndex === 11 && rowIndex === 11) {
-        /* Pourquoi il y a des chiffres en dur ? ( 11 ) */
-
-
         if ((rowIndex + o) < 0 || (rowIndex + o) > rowLenght ||
           (colIndex + l) < 0 || (colIndex + l) > colLenght ||
-          (l !== 0 && o !== 0) && colIndex === 11 && rowIndex === 11) {
-          continue;
+          (l !== 0 && o !== 0)) {
+          continue
         }
         if (array[rowIndex + o][colIndex + l].bombe) {
-          bombNumber++;
+          bombNumber++
         }
       }
     }
-    return bombNumber;
+    return bombNumber
   },
   GenerateBomb: (array, colLength, rowLength) => {
     let caseNumber = 0
@@ -133,15 +101,15 @@ export default {
   },
   CheckCase: (element, oldArray, checkCase, isRecursive) => {
     let _col
-    let score = 0;
-    let gameBreak = false;
-    let win = false;
+    let score = 0
+    let gameBreak = false
+    let win = false
     let array = (isRecursive) ? oldArray : oldArray
     array = array.map(row => row.map(col => {
       if (col.id === element.id) {
         _col = col
+        col.used = true
         if (!col.bombe && !col.used) {
-          col.used = true
           score = score + 1
         }
         if (col.bombe) {
@@ -150,7 +118,7 @@ export default {
       }
       return col
     }))
-    console.log(score);
+    win = isWin(array)
     if (_col.value !== 0 && !gameBreak) {
       return {
         array,
@@ -169,15 +137,15 @@ export default {
         }
       }
       if (!_col.bombe && !isRecursive) {
-        let adjacent = getAdjacentCase(_col, array);
+        let adjacent = getAdjacentCase(_col, array)
         adjacent.forEach((item, i) => {
-          let _current = array;
+          let _current = array
           if (!item.used && !item.bombe) {
             array.forEach(row => row.forEach(column => {
               if (column.id === item.id && !item.used && !column.bombe) {
-                score = score + 1;
-                column.used = true;
-                const result = checkCase(item, _current, checkCase, (column.value === 0) ? false : true)
+                score = score + 1
+                column.used = true
+                const result = checkCase(item, _current, checkCase, column.value !== 0)
                 _current = result.array
                 score = score + result.score
                 gameBreak = result.gameBreak
@@ -190,8 +158,8 @@ export default {
             win: isWin(_current),
             score,
             gameBreak: gameBreak
-          };
-        });
+          }
+        })
       }
     }
     return {
@@ -199,6 +167,6 @@ export default {
       win: isWin(array),
       score,
       gameBreak: gameBreak
-    };
-  },
+    }
+  }
 }

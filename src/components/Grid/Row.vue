@@ -1,11 +1,12 @@
 <template>
-  <div class="Row">
-    <Cell v-for='(cell, index) in row' :key="'cell'+index" :cell="cell"/>
+  <div class="Row" :style="`height: calc(90vh / ${Number(getY)+1})`">
+    <Cell v-for='(cell, index) in row' :key="'cell'+index+cell.y+cell.x" :cell="cell"/>
   </div>
 </template>
 
 <script>
 import Cell from '@/components/Grid/Cell.vue'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Row',
@@ -20,6 +21,13 @@ export default {
   },
   mounted () {
   },
+  computed: {
+    ...mapGetters([
+      'array',
+      'getY',
+      'getX'
+    ])
+  },
   components: {
     Cell
   },
@@ -31,7 +39,7 @@ export default {
 <style scoped lang="scss">
 .Row {
   display: flex;
-  height: calc(100% / 11);
-  min-height: 64px;
+  width: 100%;
+  // min-height: 64px;
 }
 </style>

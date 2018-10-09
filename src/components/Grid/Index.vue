@@ -36,7 +36,7 @@ export default {
 <style scoped lang="scss">
 .Grid {
   width: 100vw;
-  height: 100vh;
+  height: 90vh;
   padding: 0;
   margin: 0;
 }
