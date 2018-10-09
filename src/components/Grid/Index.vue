@@ -35,9 +35,12 @@ export default {
 
 <style scoped lang="scss">
 .Grid {
-  width: 100vw;
-  height: 90vh;
+  width: 90vw;
+  height: 80vh;
   padding: 0;
-  margin: 0;
+  margin: 5vh 5vw;
+  -webkit-box-shadow: 0px 0px 15px 1px rgba(255,255,255,1);
+-moz-box-shadow: 0px 0px 15px 1px rgba(255,255,255,1);
+box-shadow: 0px 0px 15px 1px rgba(255,255,255,1);
 }
 </style>

@@ -30,15 +30,14 @@ function getAdjacentCase(element, array) {
         adjacentValidCase.push(array[originValues.y + y][originValues.x + x])
     }
   }
-  console.log(adjacentValidCase.length)
   return adjacentValidCase
 }
 export default {
   generateArray: (y, x) => {
     let array = []
-    for (let rowIndex = 0; rowIndex <= y; rowIndex++) {
+    for (let rowIndex = 0; rowIndex < y; rowIndex++) {
       let row = []
-      for (let colIndex = 0; colIndex <= x; colIndex++) {
+      for (let colIndex = 0; colIndex < x; colIndex++) {
         row.push({
           bombe: false,
           value: 0,

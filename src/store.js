@@ -11,11 +11,11 @@ export default new Vuex.Store({
     score: 0,
     win: false,
     gameBreak: false,
+    loading: false,
     settings: {
-      y: 52,
-      x: 52
+      y: 20,
+      x: 50
     },
-    loading: false
   },
   getters: {
     array: (state, getters) => {
@@ -32,11 +32,13 @@ export default new Vuex.Store({
     },
     getLoading: (state, getters) => {
       return state.loading
+    },
+    getGameBreak: (state, getters) => {
+      return state.gameBreak
     }
   },
   mutations: {
-    generateArray (state) {
-      state.loading = true
+    generateArray(state) {
       state.array = []
       state.score = 0
       state.win = false
@@ -46,47 +48,56 @@ export default new Vuex.Store({
       array = mixin.setNumber(array, mixin.AdjacentBomb)
       state.array = array
       state.score = 0
-      state.loading = false
     },
-    setClick (state, payload) {
-      state.loading = true
+    setClick(state, payload) {
       const result = mixin.CheckCase(payload, state.array, mixin.CheckCase, false)
       state.win = result.win
       state.gameBreak = result.gameBreak
       state.score = state.score + result.score
       state.array = result.array
-      state.loading = false
     },
-    setX (state, payload) {
+    setX(state, payload) {
       state.loading = true
       state.settings.x = payload.x
       state.loading = false
     },
-    setY (state, payload) {
+    setY(state, payload) {
       state.loading = true
       state.settings.y = payload.y
       state.loading = false
     },
+    setLoading(state) {
+      state.loading = !state.loading
+    },
   },
   actions: {
-    generateArray (context) {
+    generateArray(context) {
       context.commit('generateArray')
     },
-    setClick (context, payload) {
+    setClick(context, payload) {
+      context.commit('setLoading')
       context.commit('setClick', payload)
+      context.commit('setLoading')
     },
-    setX (context, payload) {
+    setX(context, payload) {
+      context.commit('setLoading')
       context.commit('setX', payload)
       context.commit('generateArray', payload)
+      context.commit('setLoading')
     },
-    setY (context, payload) {
+    setY(context, payload) {
+      context.commit('setLoading')
       context.commit('setY', payload)
       context.commit('generateArray', payload)
+      context.commit('setLoading')
     },
-    resetGame (context, payload) {
-      new Promise((resolve, reject) => {
-        resolve(context.commit('generateArray', payload))
-      })
+    resetGame(context, payload) {
+      context.commit('setLoading')
+      context.commit('generateArray', payload)
+      context.commit('setLoading')
+    },
+    setLoading(context, payload) {
+      context.commit('setLoading')
     }
   }
 })

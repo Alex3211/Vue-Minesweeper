@@ -1,7 +1,7 @@
 <template>
-  <div class="Row" :style="`height: calc(90vh / ${Number(getY)+1})`">
-    <Cell v-for='(cell, index) in row' :key="'cell'+index+cell.y+cell.x" :cell="cell"/>
-  </div>
+  <div class="Row" :style="`height: calc(100% / ${getY})`">
+      <Cell v-for='(cell, index) in row' :key="'cell'+index+cell.y+cell.x" :cell="cell"/>
+    </div>
 </template>
 
 <script>
@@ -11,28 +11,20 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'Row',
   data: function () {
-    return {
-    }
+    return {}
   },
   props: {
     row: Array
   },
-  created () {
-  },
-  mounted () {
-  },
+  created () {},
+  mounted () {},
   computed: {
-    ...mapGetters([
-      'array',
-      'getY',
-      'getX'
-    ])
+    ...mapGetters(['array', 'getY', 'getX'])
   },
   components: {
     Cell
   },
-  methods: {
-  }
+  methods: {}
 }
 </script>
 
@@ -40,6 +32,6 @@ export default {
 .Row {
   display: flex;
   width: 100%;
-  // min-height: 64px;
 }
+
 </style>

@@ -1,9 +1,10 @@
 <template>
   <div class="menu">
-    <div class="btn" v-for="(menu, index) in menuContent" :key="'menu'+index">
-      {{(menu.fv === 'Score') ? `${menu.fv} ${score}` : (menu.fv === 'rejouer') ? `${menu.fv}` : ''}}
-      <div v-show="menu.fv === 'Longueur'"> <input v-model="XModel" type="number" name="a" id="e"> </div>
-      <div v-show="menu.fv === 'Largeur'"> <input v-model="YModel" type="number" name="a" id="e"> </div>
+    <div class="btn" v-for="(menu, index) in menuContent" :key="'menu'+index" @click=" (menu.fv === 'rejouer') ? $store.dispatch('generateArray') : null">
+      <div v-if="menu.fv === 'Score'">{{`${menu.fv} ${score}`}}</div>
+      <div v-if="menu.fv === 'rejouer'">{{`${menu.fv}`}}</div>
+      <input v-show="menu.fv === 'Longueur'" v-model="XModel" type="number" name="a" id="e">
+      <input v-show="menu.fv === 'Largeur'" v-model="YModel" type="number" name="a" id="e">
     </div>
   </div>
 </template>
@@ -48,7 +49,7 @@ export default {
         this.$store.dispatch('setX', { x: val })
       },
       get: function () {
-        return this.getX + 1
+        return this.getX
       }
     },
     YModel: {
@@ -56,7 +57,7 @@ export default {
         this.$store.dispatch('setY', { y: val })
       },
       get: function () {
-        return this.getY + 1
+        return this.getY
       }
     }
 
@@ -75,7 +76,6 @@ export default {
   .btn {
     width: 20%;
     font-size: 20px;
-    border: 1px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -84,7 +84,15 @@ export default {
   .btn:hover {
     font-size: 24px;
     cursor: pointer;
-    color: #626468;
+    color: #8e9094;
+  }
+  input {
+    padding: 0px 43%;
+    height: 100%;
+    width: 100%;
+    border: none;
+    background: #262631;
+    color: white;
   }
 }
 </style>

@@ -22,4 +22,9 @@ export default {
 .home {
   height: 100%;
 }
+.nav {
+    -webkit-box-shadow: 0px 0px 15px 1px rgba(255,255,255,1);
+-moz-box-shadow: 0px 0px 15px 1px rgba(255,255,255,1);
+box-shadow: 0px 0px 15px 1px rgba(255,255,255,1);
+}
 </style>
