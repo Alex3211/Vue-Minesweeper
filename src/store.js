@@ -13,8 +13,8 @@ export default new Vuex.Store({
     gameBreak: false,
     loading: false,
     settings: {
-      y: 20,
-      x: 50
+      y: 10,
+      x: 10
     },
   },
   getters: {
@@ -75,26 +75,26 @@ export default new Vuex.Store({
       context.commit('generateArray')
     },
     setClick(context, payload) {
-      context.commit('setLoading')
+      // context.commit('setLoading')
       context.commit('setClick', payload)
-      context.commit('setLoading')
+      // context.commit('setLoading')
     },
     setX(context, payload) {
-      context.commit('setLoading')
+      // context.commit('setLoading')
       context.commit('setX', payload)
       context.commit('generateArray', payload)
-      context.commit('setLoading')
+      // context.commit('setLoading')
     },
     setY(context, payload) {
-      context.commit('setLoading')
+      // context.commit('setLoading')
       context.commit('setY', payload)
       context.commit('generateArray', payload)
-      context.commit('setLoading')
+      // context.commit('setLoading')
     },
     resetGame(context, payload) {
-      context.commit('setLoading')
+      // context.commit('setLoading')
       context.commit('generateArray', payload)
-      context.commit('setLoading')
+      // context.commit('setLoading')
     },
     setLoading(context, payload) {
       context.commit('setLoading')

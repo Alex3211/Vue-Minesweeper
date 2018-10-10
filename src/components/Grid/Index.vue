@@ -1,7 +1,7 @@
 <template>
-  <div class="Grid">
-    <Row v-for='(row, index) in array' :key="'row'+index" :row="row"/>
-  </div>
+  <transition-group name="list" class="grid">
+    <Row class="row" v-for='(row, index) in array' :key="'row'+index" :row="row" :style="`transition-delay: ${index+1} * 1000ms`"/>
+  </transition-group>
 </template>
 
 <script>
@@ -29,18 +29,25 @@ export default {
     ])
   },
   methods: {
+
   }
 }
 </script>
 
 <style scoped lang="scss">
-.Grid {
-  width: 90vw;
-  height: 80vh;
+.grid {
+  display: block;
+  width: 96vw;
+  height: 86vh;
   padding: 0;
-  margin: 5vh 5vw;
-  -webkit-box-shadow: 0px 0px 15px 1px rgba(255,255,255,1);
--moz-box-shadow: 0px 0px 15px 1px rgba(255,255,255,1);
-box-shadow: 0px 0px 15px 1px rgba(255,255,255,1);
+  margin: 2vh 2vw;
+}
+.list-enter-active, .list-leave-active {
+  transition: all 1s;
+
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateX(100%);
 }
 </style>

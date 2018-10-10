@@ -37,6 +37,7 @@ body,
   height: 100vh;
   padding: 0;
   margin: 0;
-  background: #262631;
+  // background: #262631;
+  background: white;
 }
 </style>

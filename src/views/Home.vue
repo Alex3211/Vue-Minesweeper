@@ -1,5 +1,5 @@
 <template>
-  <div class="Home">
+  <div class="home">
     <Nav class="nav"/>
     <Grid class="grid"/>
   </div>
@@ -22,9 +22,14 @@ export default {
 .home {
   height: 100%;
 }
+.grid {
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.75);
+}
 .nav {
-    -webkit-box-shadow: 0px 0px 15px 1px rgba(255,255,255,1);
--moz-box-shadow: 0px 0px 15px 1px rgba(255,255,255,1);
-box-shadow: 0px 0px 15px 1px rgba(255,255,255,1);
+  //     -webkit-box-shadow: 0px 0px 15px 1px rgba(255,255,255,1);
+  // -moz-box-shadow: 0px 0px 15px 1px rgba(255,255,255,1);
+  // box-shadow: 0px 0px 15px 1px rgba(255,255,255,1);
 }
 </style>

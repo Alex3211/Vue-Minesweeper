@@ -6,6 +6,7 @@ function uuidv4() {
     return v.toString(16);
   });
 }
+
 function isWin(array) {
   let countTrue = 0
   let countFalse = 0
@@ -18,6 +19,7 @@ function isWin(array) {
   }))
   return countTrue === 0
 }
+
 function getAdjacentCase(element, array) {
   const originValues = {
     x: element.x,
@@ -33,6 +35,7 @@ function getAdjacentCase(element, array) {
   return adjacentValidCase
 }
 export default {
+  getAdjacentCase,
   generateArray: (y, x) => {
     let array = []
     for (let rowIndex = 0; rowIndex < y; rowIndex++) {
@@ -44,7 +47,8 @@ export default {
           used: false,
           id: `${rowIndex}${colIndex}${uuidv4()}`,
           x: colIndex,
-          y: rowIndex
+          y: rowIndex,
+          block: false
         })
       }
       array.push(row)
@@ -61,22 +65,7 @@ export default {
     })
     return array
   },
-  AdjacentBomb: (array, colIndex, rowIndex, rowLenght, colLenght) => {
-    let bombNumber = 0
-    for (let o = -1; o <= 1; o++) {
-      for (let l = -1; l <= 1; l++) {
-        if ((rowIndex + o) < 0 || (rowIndex + o) > rowLenght ||
-          (colIndex + l) < 0 || (colIndex + l) > colLenght ||
-          (l !== 0 && o !== 0)) {
-          continue
-        }
-        if (array[rowIndex + o][colIndex + l].bombe) {
-          bombNumber++
-        }
-      }
-    }
-    return bombNumber
-  },
+  AdjacentBomb: (array, colIndex, rowIndex, rowLenght, colLenght) => getAdjacentCase({ x: colIndex, y: rowIndex }, array).filter(adjacentItem => adjacentItem.bombe).length,
   GenerateBomb: (array, colLength, rowLength) => {
     let caseNumber = 0
     array.forEach((e, i) => {
@@ -107,18 +96,20 @@ export default {
     array = array.map(row => row.map(col => {
       if (col.id === element.id) {
         _col = col
-        col.used = true
-        if (!col.bombe) {
-          score = score + 1
-        }
-        if (col.bombe) {
-          gameBreak = true
+        if (!col.block) {
+          col.used = true
+          if (!col.bombe) {
+            score = score + 1
+          }
+          if (col.bombe) {
+            gameBreak = true
+          }
         }
       }
       return col
     }))
     win = isWin(array)
-    if (_col.value !== 0 && !gameBreak) {
+    if (_col.value !== 0 && !gameBreak || _col.block) {
       return {
         array,
         win: isWin(array),
@@ -141,7 +132,7 @@ export default {
           let _current = array
           if (!item.used && !item.bombe) {
             array.forEach(row => row.forEach(column => {
-              if (column.id === item.id && !item.used && !column.bombe) {
+              if (column.id === item.id && !item.used && !column.bombe && !column.block) {
                 score = score + 1
                 column.used = true
                 const result = checkCase(item, _current, checkCase, column.value !== 0)
