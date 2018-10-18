@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+// import Home from './views/Home.vue'
+import HomeC from './views/Home_canvas.vue'
 
 Vue.use(Router)
 
@@ -11,7 +12,12 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: HomeC
+    },
+    {
+      path: '/c',
+      name: 'home',
+      component: HomeC
     },
     {
       path: '/about',
