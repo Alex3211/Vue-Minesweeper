@@ -56,7 +56,6 @@ export default {
     calcWidth (isForX2, obj, array) {
       const x1 = (100 / array[0].length) * obj.x
       const x2 = x1 + (100 / array[0].length)
-      console.log((isForX2) ? 'X2' : 'X1', (isForX2) ? x2 : x1)
       if (isForX2) {
         return x2
       }
