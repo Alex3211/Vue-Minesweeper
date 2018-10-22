@@ -23,19 +23,11 @@ export default {
     },
     value: {
       type: Number,
-      defualt: 0
+      default: 0
     },
     color: {
       type: String,
       default: "#F00"
-    },
-    "text-size": {
-      type: String,
-      default: "28"
-    },
-    debug: {
-      type: Boolean,
-      default: false
     }
   },
   data() {
@@ -64,10 +56,10 @@ export default {
   render() {
     if (!this.provider.context) return;
     const ctx = this.provider.context;
-    const oldBox = this.oldBox;
-    const newBox = this.calculatedBox;
+    const oldBox = this.oldBox
+    const newBox = this.calculatedBox
     ctx.beginPath();
-    ctx.clearRect(oldBox.x, oldBox.y, oldBox.w, oldBox.h);
+    ctx.clearRect(newBox.x, newBox.y, newBox.w, newBox.h);
     ctx.rect(newBox.x, newBox.y, newBox.w, newBox.h);
     ctx.fillStyle = this.color;
     ctx.lineWidth = "1";

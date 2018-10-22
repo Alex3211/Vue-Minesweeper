@@ -1,6 +1,6 @@
 <template>
-  <div class="my-canvas-wrapper">
-    <canvas ref="my-canvas"></canvas>
+  <div class="canvas-wrapper">
+    <canvas ref="canvas"></canvas>
     <slot></slot>
   </div>
 </template>
@@ -20,9 +20,9 @@ export default {
     }
   },
   mounted () {
-    this.provider.context = this.$refs['my-canvas'].getContext('2d')
-    this.$refs['my-canvas'].width = this.$refs['my-canvas'].parentElement.clientWidth
-    this.$refs['my-canvas'].height = this.$refs['my-canvas'].parentElement.clientHeight
+    this.provider.context = this.$refs['canvas'].getContext('2d')
+    this.$refs['canvas'].width = this.$refs['canvas'].parentElement.clientWidth
+    this.$refs['canvas'].height = this.$refs['canvas'].parentElement.clientHeight
   }
 }
 </script>

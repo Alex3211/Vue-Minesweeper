@@ -3,8 +3,8 @@
     <Nav class="nav"/>
     <Canvas ref="canvas" class="canvas">
       <Box v-for="(obj, index) of currentArray(array)" :key="index"
-        :x1="calcWidth(false, obj, array[0].length)" :x2="calcWidth(true, obj, array[1].length)"
-        :y1="calcHeight(false, obj, array.length)" :y2="calcHeight(true, obj, array.length)"
+        :x1="calcWidth(false, obj, array)" :x2="calcWidth(true, obj, array)"
+        :y1="calcHeight(false, obj, array)" :y2="calcHeight(true, obj, array)"
         :x="obj.x"
         :y="obj.y"
         :value="obj.value"
@@ -36,17 +36,13 @@ export default {
         { val: 32, color: 'blue', x: 0, y: 1 },
         { val: 66, color: 'rebeccapurple', x: 1, y: 0 },
         { val: 1, color: 'green', x: 1, y: 1 }
-      ],
-      colWidth: 0,
-      colHeight: 0
+      ]
     }
   },
   created () {
     this.$store.dispatch('generateArray')
   },
   mounted () {
-    this.colWidth = this.colWidthToPix()
-    this.colHeight = this.colHeightToPix()
   },
   computed: {
     ...mapGetters(['array'])
@@ -57,24 +53,18 @@ export default {
       this.array.forEach(row => row.forEach(item => tmp.push(item)))
       return tmp
     },
-    colWidthToPix () {
-      return Math.floor(this.$refs.canvas.$el.clientWidth / this.array.length)
-    },
-    colHeightToPix (percent) {
-      return Math.floor(this.$refs.canvas.$el.clientHeight / this.array.length)
-    },
-    calcWidth (isForX2, obj, length) {
-      const x1 = (100 / length) * obj.x
-      const x2 = x1 + (100 / length)
+    calcWidth (isForX2, obj, array) {
+      const x1 = (100 / array[0].length) * obj.x
+      const x2 = x1 + (100 / array[0].length)
       console.log((isForX2) ? 'X2' : 'X1', (isForX2) ? x2 : x1)
       if (isForX2) {
         return x2
       }
       return x1
     },
-    calcHeight (isForY2, obj, height) {
-      const y1 = (100 / height) * obj.y
-      const y2 = y1 + (100 / height)
+    calcHeight (isForY2, obj, array) {
+      const y1 = (100 / array.length) * obj.y
+      const y2 = y1 + (100 / array.length)
       if (isForY2) {
         return y2
       }
