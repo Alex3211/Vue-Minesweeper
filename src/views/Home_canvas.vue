@@ -3,7 +3,7 @@
     <Nav class="nav"/>
     <Canvas ref="canvas" class="canvas">
       <Box v-for="(obj, index) of currentArray(array)" :key="index"
-        :x1="calcWidth(false, obj, array.length)" :x2="calcWidth(true, obj, array.length)"
+        :x1="calcWidth(false, obj, array[0].length)" :x2="calcWidth(true, obj, array[1].length)"
         :y1="calcHeight(false, obj, array.length)" :y2="calcHeight(true, obj, array.length)"
         :x="obj.x"
         :y="obj.y"
@@ -63,18 +63,18 @@ export default {
     colHeightToPix (percent) {
       return Math.floor(this.$refs.canvas.$el.clientHeight / this.array.length)
     },
-    calcWidth (isForX2, obj, x) {
-      const x1 = (100 / x) * obj.x
-      const x2 = x1 + (100 / x)
+    calcWidth (isForX2, obj, length) {
+      const x1 = (100 / length) * obj.x
+      const x2 = x1 + (100 / length)
       console.log((isForX2) ? 'X2' : 'X1', (isForX2) ? x2 : x1)
       if (isForX2) {
         return x2
       }
       return x1
     },
-    calcHeight (isForY2, obj, y) {
-      const y1 = (100 / y) * obj.y
-      const y2 = y1 + (100 / y)
+    calcHeight (isForY2, obj, height) {
+      const y1 = (100 / height) * obj.y
+      const y2 = y1 + (100 / height)
       if (isForY2) {
         return y2
       }
