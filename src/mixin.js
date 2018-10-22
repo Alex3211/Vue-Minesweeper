@@ -56,20 +56,17 @@ export default {
     return array
   },
   setNumber: (array, adjacentFunction) => {
-    array.forEach((row, i) => {
-      row.forEach((column, t) => {
-        if (!column.bombe) {
-          array[i][t].value = adjacentFunction(array, t, i, array.length - 1, row.length - 1)
-        }
-      })
-    })
+    array.forEach((row, i) => row.forEach((column, t) => {
+      if (!column.bombe)
+        array[i][t].value = adjacentFunction(array, t, i, array.length - 1, row.length - 1)
+    }))
     return array
   },
-  AdjacentBomb: (array, colIndex, rowIndex, rowLenght, colLenght) => getAdjacentCase({ x: colIndex, y: rowIndex }, array).filter(adjacentItem => adjacentItem.bombe).length,
+  AdjacentBomb: (array, colIndex, rowIndex) => getAdjacentCase({ x: colIndex, y: rowIndex }, array).filter(adjacentItem => adjacentItem.bombe).length,
   GenerateBomb: (array, colLength, rowLength) => {
     let caseNumber = 0
     array.forEach((e, i) => {
-      e.forEach((secondElement, secondIndex) => {
+      e.forEach((secondElement) => {
         caseNumber++
         secondElement.bombe = false
         secondElement.value = 0
@@ -142,12 +139,6 @@ export default {
                 win = result.win
               }
             }))
-          }
-          return {
-            array: _current,
-            win: isWin(_current),
-            score,
-            gameBreak: gameBreak
           }
         })
       }

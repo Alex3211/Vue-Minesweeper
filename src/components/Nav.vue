@@ -67,7 +67,13 @@ export default {
       }
     }
   },
-  methods: {}
+  methods: {
+    sleep (miliseconds) {
+      var currentTime = new Date().getTime()
+
+      while (currentTime + miliseconds >= new Date().getTime()) {}
+    }
+  }
 }
 </script>
 
@@ -126,15 +132,15 @@ export default {
     border-style: inset inset inset inset;
     border-color: #5252a5;
     .input {
-      background-color:white;
-      color: rgba(0,0,0,0.5);
+      background-color: white;
+      color: rgba(0, 0, 0, 0.5);
       border: 1px solid grey;
-      padding:5px;
+      padding: 5px;
       line-height: 15px;
       display: flex;
       align-items: center;
       justify-content: center;
-      input{
+      input {
         border: 0;
         height: 100%;
       }

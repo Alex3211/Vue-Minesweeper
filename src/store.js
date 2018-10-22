@@ -57,15 +57,15 @@ export default new Vuex.Store({
       state.array = result.array
     },
     setX(state, payload) {
-      state.loading = true
+        state.loading = true
       state.settings.x = payload.x
       state.loading = false
-    },
+  },
     setY(state, payload) {
-      state.loading = true
+        state.loading = true
       state.settings.y = payload.y
       state.loading = false
-    },
+  },
     setLoading(state) {
       state.loading = !state.loading
     },
