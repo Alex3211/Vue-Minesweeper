@@ -8,11 +8,11 @@
         <div v-if="menu.fv === 'rejouer'"><div class="text">{{`${menu.fv}`}}</div></div>
         <div class="input" v-show="menu.fv === 'Longueur'">
           X:
-          <input v-model="XModel" min="10" max="40"  type="number" name="a" id="e">
+          <input v-model="XModel" min="2" max="40"  type="number" name="a" id="e">
         </div>
         <div class="input" v-show="menu.fv === 'Largeur'">
           Y:
-          <input min="10" max="40"  v-model="YModel" type="number" name="a" id="e">
+          <input min="2" max="40"  v-model="YModel" type="number" name="a" id="e">
         </div>
     </div>
   </div>

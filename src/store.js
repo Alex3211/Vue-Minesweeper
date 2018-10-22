@@ -13,8 +13,8 @@ export default new Vuex.Store({
     gameBreak: false,
     loading: false,
     settings: {
-      y: 10,
-      x: 10
+      y: 2,
+      x: 2
     },
   },
   getters: {
@@ -48,6 +48,9 @@ export default new Vuex.Store({
       array = mixin.setNumber(array, mixin.AdjacentBomb)
       state.array = array
       state.score = 0
+      // RE RENDER
+      // state.array.push(null);
+      // state.array = state.array.splice(0, state.array.length - 1);
     },
     setClick(state, payload) {
       const result = mixin.CheckCase(payload, state.array, mixin.CheckCase, false)

@@ -1,13 +1,6 @@
 <template>
   <div class="home">
     <Nav class="nav"/>
-    <!-- These are the custom components we'll create -->
-    <!-- Values for `my-box` are percentages of the width of the canvas. -->
-    <!-- Each bar will take up an equal space of the canvas.
-        :x1="((index / chartValues.length) * 100)" :x2="((index / chartValues.length) * 100) + (100 / chartValues.length)"
-        :y1="100" :y2="100 - obj.val" -->
-        <!-- :color="obj.color" -->
-
     <Canvas ref="canvas" class="canvas">
       <Box v-for="(obj, index) of currentArray(array)" :key="index"
         :x1="calcWidth(false, obj, array.length)" :x2="calcWidth(true, obj, array.length)"
@@ -52,21 +45,8 @@ export default {
     this.$store.dispatch('generateArray')
   },
   mounted () {
-    // console.log(this.$refs["canvas"]);
     this.colWidth = this.colWidthToPix()
     this.colHeight = this.colHeightToPix()
-    // let dir = 1
-    // let selectedVal = Math.floor(Math.random() * this.chartValues.length)
-
-    // setInterval(() => {
-    //   if (Math.random() > 0.995) dir *= -1
-    //   if (Math.random() > 0.99) { selectedVal = Math.floor(Math.random() * this.chartValues.length) }
-
-    //   this.chartValues[selectedVal].val = Math.min(
-    //     Math.max(this.chartValues[selectedVal].val + dir * 0.5, 0),
-    //     100
-    //   )
-    // }, 16)
   },
   computed: {
     ...mapGetters(['array'])
@@ -108,8 +88,6 @@ export default {
 .canvas {
   width: 96vw;
   height: 86vh;
-  // width: 400px;
-  // height: 400px;
   padding: 0;
   margin: 2vh 2vw;
 }
